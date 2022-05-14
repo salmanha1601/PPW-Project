@@ -1,4 +1,4 @@
-package Domain;
+package DataAccess;
 
 public interface Dao {
 }
