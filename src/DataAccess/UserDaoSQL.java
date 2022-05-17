@@ -12,14 +12,14 @@ public class UserDaoSQL implements Dao{
 
     public boolean findUserByEmail(String email, String password) throws SQLException {
         boolean result=false;
-        PreparedStatement ps=null;
+        Statement statement=null;
         try {
             Connection connection=this.dbc.startConnection();
-            String qry="SELECT * FROM USERS WHERE EMAIL= "+email+"AND PASS= "+password;
-            ps= connection.prepareStatement(qry);
-            ResultSet rs=ps.executeQuery();
-            rs.last();
-            if(rs.getRow()>0){
+            String qry="SELECT * FROM USERS WHERE EMAIL= '"+email+"' AND PASS= '"+password+"'";
+            statement= connection.createStatement();
+            ResultSet rs=statement.executeQuery(qry);
+            rs.next();
+            if(rs.getRow()==1){
                 result=true;
             }
             rs.close();
@@ -27,8 +27,8 @@ public class UserDaoSQL implements Dao{
             e.printStackTrace();
         }finally {
             try {
-                if (ps != null) {
-                    ps.close();
+                if (statement != null) {
+                    statement.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

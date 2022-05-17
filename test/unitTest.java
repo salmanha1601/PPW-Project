@@ -12,7 +12,7 @@ public class unitTest {
 
     @Test
     public void testLogin() {
-        assertEquals("Must get 'You have logged in successfully'", "You have logged in successfully", ua.Login("salman", "salman"));
+        assertEquals("Must get 'You have logged in successfully'", "You have logged in successfully", ua.Login("salman@gmail.com", "123456s"));
         assertEquals("Must get 'This user is not in the system'", "This user is not in the system", ua.Login("gsa", "gsa"));
         assertEquals("Must get 'This user is not in the system'", "This user is not in the system", ua.Login("gsa", "salman"));
         assertEquals("Must get 'This user is not in the system'", "This user is not in the system", ua.Login("salman", "gsa"));

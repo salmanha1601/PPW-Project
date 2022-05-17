@@ -46,6 +46,7 @@ public class OracleCon {
     public void endConnection() throws SQLException{
         if(this.conn != null){
             this.conn.close();
+            this.conn=null;
         }
     }
 
