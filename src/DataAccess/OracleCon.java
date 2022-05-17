@@ -14,10 +14,14 @@ public class OracleCon {
     private final String password="abcd";
     private static final String connectionUrl="jdbc:oracle:thin:@ora1.ise.bgu.ac.il:1521/oracle";
     private String driver="oracle.jdbc.driver.OracleDriver";
+    private static final OracleCon instance = new OracleCon();
 
-    public OracleCon(){
-        super();
-        connect();
+    private OracleCon(){
+
+    }
+
+    public static OracleCon getInstance() {
+        return instance;
     }
 
     //connection to oracle database
@@ -31,10 +35,12 @@ public class OracleCon {
         }
     }
 
-    private void startConnection(){
-        if(this.conn!=null){
+    public Connection startConnection(){
+        if(this.conn==null){
             connect();
+            return this.conn;
         }
+        return null;
     }
 
     public void endConnection() throws SQLException{

@@ -6,11 +6,11 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class UserController {
-    Dao ud;
-    Dao gd;
-    Dao ld;
-    Dao td;
-    Dao rd;
+    UserDaoSQL ud;
+    GameDaoSQL gd;
+    LeagueDaoSQL ld;
+    TeamDaoSQL td;
+    RefereeDaoSQL rd;
     public UserController() {
         ud = UserDaoSQL.getInstance();
         gd = GameDaoSQL.getInstance();
