@@ -12,11 +12,11 @@ public class UserDaoSQL implements Dao{
 
     public boolean findUserByEmail(String email, String password) throws SQLException {
         boolean result=false;
-        Statement statement=null;
+        PreparedStatement statement=null;
         try {
             Connection connection=this.dbc.startConnection();
             String qry="SELECT * FROM USERS WHERE EMAIL= '"+email+"' AND PASS= '"+password+"'";
-            statement= connection.createStatement();
+            statement= connection.prepareStatement(qry);
             ResultSet rs=statement.executeQuery(qry);
             rs.next();
             if(rs.getRow()==1){
@@ -43,11 +43,11 @@ public class UserDaoSQL implements Dao{
         PreparedStatement ps=null;
         try {
             Connection connection=this.dbc.startConnection();
-            String qry="SELECT * FROM USERS WHERE USERNAME= "+refereeName+"AND USERROLE= "+role;
+            String qry="SELECT * FROM USERS WHERE USERNAME= '"+refereeName+"' AND USERROLE= '"+role+"'";
             ps= connection.prepareStatement(qry);
             ResultSet rs=ps.executeQuery();
-            rs.last();
-            if(rs.getRow()>0){
+            rs.next();
+            if(rs.getRow()==1){
                 result=true;
             }
             rs.close();

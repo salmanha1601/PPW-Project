@@ -14,6 +14,36 @@ public class RefereeDaoSQL implements Dao{
     }
 
     public boolean addReferee(String leagueName, String refereeName) throws SQLException {
-        return true;
+        boolean result=false;
+        PreparedStatement ps=null;
+        Connection connection=null;
+        try{
+            String qry="INSERT INTO REFEREES(REFEREENAME, LEAUGENAME)"+
+                    " VALUES(?,?)"; //query
+            connection=this.dbc.startConnection();
+            ps = connection.prepareStatement(qry); //compiling query in the DB
+            ps.setString(1, refereeName);
+            ps.setString(2, leagueName);
+            ps.executeUpdate();
+            connection.commit();
+            result=true;
+        }catch (SQLException e) {
+            try{
+                connection.rollback();
+            }catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally{
+            try{
+                if(ps != null){
+                    ps.close();
+                }
+            }catch (SQLException e3) {
+                e3.printStackTrace();
+            }
+            this.dbc.endConnection();
+        }
+        return result;
     }
 }

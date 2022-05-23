@@ -18,11 +18,11 @@ public class LeagueDaoSQL implements Dao{
         PreparedStatement ps=null;
         try {
             Connection connection=this.dbc.startConnection();
-            String qry="SELECT * FROM LEAGUE WHERE LEAGUENAME= "+ leagueName;
+            String qry="SELECT * FROM LEAGUE WHERE LEAGUENAME= '"+ leagueName+"'";
             ps= connection.prepareStatement(qry);
             ResultSet rs=ps.executeQuery();
-            rs.last();
-            if(rs.getRow()>0){
+            rs.next();
+            if(rs.getRow()==1){
                 result=true;
             }
             rs.close();
@@ -46,9 +46,10 @@ public class LeagueDaoSQL implements Dao{
         PreparedStatement ps=null;
         try {
             Connection connection=this.dbc.startConnection();
-            String qry="SELECT * FROM LEAGUE WHERE LEAGUENAME= "+ leagueName;
+            String qry="SELECT * FROM LEAGUE WHERE LEAGUENAME= '"+ leagueName+"'";
             ps= connection.prepareStatement(qry);
             ResultSet rs=ps.executeQuery();
+            rs.next();
             refereesNumber=rs.getInt("NUMREFEREES");
             rs.close();
         } catch (SQLException e) {
