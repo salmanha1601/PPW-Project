@@ -46,4 +46,67 @@ public class RefereeDaoSQL implements Dao{
         }
         return result;
     }
+
+    public boolean findRefereeByName(String refereeName, String League) throws SQLException {
+        boolean result=false;
+        PreparedStatement ps=null;
+        try {
+            Connection connection=this.dbc.startConnection();
+            String qry="SELECT * FROM REFEREES WHERE REFEREENAME= '"+refereeName+"' AND LEAUGENAME= '"+League+"'";
+            ps= connection.prepareStatement(qry);
+            ResultSet rs=ps.executeQuery();
+            rs.next();
+            if(rs.getRow()==1){
+                result=true;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            this.dbc.endConnection();
+        }
+        return result;
+    }
+
+
+
+    public boolean deletereferee(String refereeName, String League) throws SQLException {
+        boolean result=false;
+        PreparedStatement ps=null;
+        try {
+            Connection connection=this.dbc.startConnection();
+            String qry="DELETE FROM REFEREES WHERE REFEREENAME= '"+refereeName+"' AND LEAUGENAME= '"+League+"'";
+            ps= connection.prepareStatement(qry);
+            ResultSet rs=ps.executeQuery();
+            rs.next();
+            if(rs.getRow()==1){
+                result=true;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            this.dbc.endConnection();
+        }
+        return result;
+    }
+
 }
+
+
+
+

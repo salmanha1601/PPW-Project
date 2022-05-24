@@ -46,8 +46,12 @@ public class UserController {
             }
 //            number of referee in this league
             int findLeagueReferees = ld.findLeagueReferees(leagueName);//Done
-            if (!(findLeagueReferees < 12)) {
+            if (!(findLeagueReferees < 15)) {
                 return "The capacity of referees is full";
+            }
+            boolean isRefereeInSystem = rd.findRefereeByName(refereeName,leagueName );//Done
+            if (isRefereeInSystem) {
+                return "The referee is already registered to the system";
             }
 //            add on referee to league
             boolean refereeAdded = rd.addReferee(leagueName, refereeName); //Done
@@ -87,8 +91,8 @@ public class UserController {
                 return "Game not in system";
             }
             boolean findGameStadium = gd.findGameStadium(team1, team2, stadium, leagueName);//DONE
-            if (findGameStadium) {
-                return "Host stadium is already taken";
+            if (!findGameStadium) {
+                return "Game already assigned";
             }
             boolean dateGameFree1 = gd.dateGameFree(team1, date, leagueName);//DONE
             if (dateGameFree1) {
