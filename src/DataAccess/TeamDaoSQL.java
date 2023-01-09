@@ -19,7 +19,7 @@ public class TeamDaoSQL implements Dao{
         PreparedStatement ps=null;
         try {
             Connection connection=this.dbc.startConnection();
-            String qry="SELECT HOMEGAMES FROM TEAMS WHERE TEAMNAME='"+team1+"'";
+            String qry="SELECT * FROM TEAMS WHERE TEAMNAME='"+team1+"'";
             ps= connection.prepareStatement(qry);
             ResultSet rs=ps.executeQuery();
             rs.next();
